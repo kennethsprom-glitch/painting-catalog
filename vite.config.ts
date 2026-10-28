@@ -19,8 +19,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png'],
       manifest: {
-        name: 'Painting Catalog',
-        short_name: 'Paintings',
+        name: "Fred's Art Catalog",
+        short_name: "Fred's Art",
         description: 'Catalog paintings in storage. Photos and records stay on this device.',
         theme_color: '#241c18',
         background_color: '#f6f1ea',
@@ -33,6 +33,10 @@ export default defineConfig({
         ],
       },
       workbox: {
+        // New prefix so an already-installed copy drops the previous precache
+        // (workbox deletes other "-precache-" caches in this scope on activate).
+        cacheId: 'fred-art-catalog-v2',
+        cleanupOutdatedCaches: true,
         globPatterns: ['**/*.{js,css,html,svg,png,ico,ttf,webmanifest}'],
         navigateFallback: 'index.html',
         runtimeCaching: [],

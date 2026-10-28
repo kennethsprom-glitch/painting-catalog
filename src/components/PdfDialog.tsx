@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { APP_NAME } from '../brand.ts'
 import { useCatalog } from '../catalog-context.ts'
 import { formatDate, todayISO } from '../format.ts'
 import { buildCatalogPdf, type PdfLayout } from '../pdf.ts'
@@ -55,7 +56,7 @@ export function PdfDialog({ open, onOpenChange }: { open: boolean; onOpenChange:
     }
   }
 
-  const filename = `painting-catalog-${layout === 'single' ? 'one-per-page' : 'grid'}-${todayISO()}.pdf`
+  const filename = `fred-art-catalog-${layout === 'single' ? 'one-per-page' : 'grid'}-${todayISO()}.pdf`
 
   return (
     <Dialog open={open} onOpenChange={(next) => !busy && onOpenChange(next)}>
@@ -110,7 +111,7 @@ export function PdfDialog({ open, onOpenChange }: { open: boolean; onOpenChange:
             </p>
           ) : null}
           {blob ? (
-            <FileActions blob={blob} filename={filename} title={`${name || 'Painting Catalog'} · ${formatDate(todayISO())}`} />
+            <FileActions blob={blob} filename={filename} title={`${name || APP_NAME} · ${formatDate(todayISO())}`} />
           ) : null}
         </div>
       </DialogContent>

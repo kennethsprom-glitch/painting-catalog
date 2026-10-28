@@ -2,6 +2,7 @@ import { jsPDF } from 'jspdf'
 import boldUrl from './fonts/NotoSerif-Bold.ttf?url'
 import italicUrl from './fonts/NotoSerif-Italic.ttf?url'
 import regularUrl from './fonts/NotoSerif-Regular.ttf?url'
+import { APP_NAME } from './brand.ts'
 import { formatDate, formatSize, sortPaintings, todayISO } from './format.ts'
 import type { Painting, PhotoRecord } from './types.ts'
 
@@ -28,7 +29,7 @@ export async function buildCatalogPdf(options: {
   getPhoto: (photoId: string) => Promise<PhotoRecord | undefined>
   onProgress?: (message: string) => void
 }): Promise<Blob> {
-  const catalogName = options.catalogName.trim() || 'Painting Catalog'
+  const catalogName = options.catalogName.trim() || APP_NAME
   const paintings = sortPaintings(options.paintings, 'itemNumber', 'asc')
   options.onProgress?.('Loading fonts…')
   const fonts = await loadFonts()
@@ -43,7 +44,7 @@ export async function buildCatalogPdf(options: {
   doc.setProperties({
     title: catalogName,
     subject: 'Painting storage catalog',
-    creator: 'Painting Catalog',
+    creator: APP_NAME,
   })
 
   drawTitlePage(doc, catalogName, paintings.length, options.layout)

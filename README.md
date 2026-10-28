@@ -1,4 +1,4 @@
-# Painting Catalog
+# Fred's Art Catalog
 
 A small catalog for paintings in storage. It runs entirely in the browser: entries and photos live in IndexedDB on the device. There is no account, no server, and no analytics.
 

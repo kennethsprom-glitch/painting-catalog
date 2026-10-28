@@ -1,4 +1,5 @@
 import JSZip from 'jszip'
+import { APP_NAME } from './brand.ts'
 import { cleanLine, cleanNotes, isSafeId, todayISO } from './format.ts'
 import { thumbFromBlob } from './images.ts'
 import type { Painting, ParsedBackup, PhotoRecord } from './types.ts'
@@ -72,7 +73,7 @@ async function parseZip(buffer: ArrayBuffer): Promise<ParsedBackup> {
     throw new Error('That zip could not be read.')
   }
   const catalogFile = zip.file('catalog.json')
-  if (!catalogFile) throw new Error('That zip is not a Painting Catalog backup.')
+  if (!catalogFile) throw new Error(`That zip is not a ${APP_NAME} backup.`)
   const parsed = parseCatalog(JSON.parse(await catalogFile.async('string')) as unknown)
   const photos: PhotoRecord[] = []
   let missingPhotos = 0
@@ -105,7 +106,7 @@ async function parseJson(text: string): Promise<ParsedBackup> {
   try {
     raw = JSON.parse(text) as unknown
   } catch {
-    throw new Error('That file is not a Painting Catalog backup.')
+    throw new Error(`That file is not a ${APP_NAME} backup.`)
   }
   const parsed = parseCatalog(raw)
   const record = asRecord(raw)
@@ -147,7 +148,7 @@ async function parseJson(text: string): Promise<ParsedBackup> {
 function parseCatalog(raw: unknown): Omit<ParsedBackup, 'photos' | 'missingPhotos'> {
   const record = asRecord(raw)
   if (record.format !== BACKUP_FORMAT) {
-    throw new Error('That file is not a Painting Catalog backup.')
+    throw new Error(`That file is not a ${APP_NAME} backup.`)
   }
   if (record.version !== 1) throw new Error('That backup is from a newer version of the app.')
   if (!Array.isArray(record.paintings)) throw new Error('That backup has no paintings list.')
@@ -168,7 +169,7 @@ function parseCatalog(raw: unknown): Omit<ParsedBackup, 'photos' | 'missingPhoto
   const catalogName =
     typeof record.catalogName === 'string' && record.catalogName.trim()
       ? cleanLine(record.catalogName, 120)
-      : 'Painting Catalog'
+      : APP_NAME
   const exportedAt = typeof record.exportedAt === 'string' ? record.exportedAt : null
   return { catalogName, exportedAt, paintings }
 }
@@ -225,7 +226,7 @@ function normalizeDate(value: unknown): string {
 
 function asRecord(value: unknown): Record<string, unknown> {
   if (!value || typeof value !== 'object' || Array.isArray(value)) {
-    throw new Error('That file is not a Painting Catalog backup.')
+    throw new Error(`That file is not a ${APP_NAME} backup.`)
   }
   return value as Record<string, unknown>
 }

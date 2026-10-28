@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Archive, FileText } from 'lucide-react'
+import { APP_NAME } from '../brand.ts'
 import { BackupDialog } from '../components/BackupDialog.tsx'
 import { PdfDialog } from '../components/PdfDialog.tsx'
 import { Button } from '../components/ui/button.tsx'
@@ -70,7 +71,7 @@ export function GridScreen() {
         style={{ paddingTop: 'env(safe-area-inset-top)' }}
       >
         <div className="px-4 pb-4 pt-4">
-          <h1 className="font-serif text-[1.7rem] leading-none tracking-tight">Painting Catalog</h1>
+          <h1 className="font-serif text-[1.7rem] leading-none tracking-tight">{APP_NAME}</h1>
           <p className="mt-2 text-sm text-[#eadfd4]">{count}</p>
           <div className="mt-4 grid grid-cols-2 gap-2">
             <Button

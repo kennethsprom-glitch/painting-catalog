@@ -1,9 +1,10 @@
 import { openDB, type DBSchema, type IDBPDatabase } from 'idb'
+import { APP_NAME } from './brand.ts'
 import type { MergeResult, Painting, PhotoRecord, PhotoWrite } from './types.ts'
 
 const DB_NAME = 'painting-catalog'
 const DB_VERSION = 1
-const DEFAULT_CATALOG_NAME = 'Painting Catalog'
+const DEFAULT_CATALOG_NAME = APP_NAME
 
 interface CatalogDB extends DBSchema {
   paintings: {

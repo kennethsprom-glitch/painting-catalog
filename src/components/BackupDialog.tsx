@@ -146,15 +146,15 @@ export function BackupDialog({
             {zipBlob ? (
               <FileActions
                 blob={zipBlob}
-                filename={`painting-catalog-backup-${stamp}.zip`}
-                title="Painting Catalog backup"
+                filename={`fred-art-catalog-backup-${stamp}.zip`}
+                title="Fred's Art Catalog backup"
               />
             ) : null}
             {jsonBlob ? (
               <FileActions
                 blob={jsonBlob}
-                filename={`painting-catalog-backup-${stamp}.json`}
-                title="Painting Catalog backup"
+                filename={`fred-art-catalog-backup-${stamp}.json`}
+                title="Fred's Art Catalog backup"
               />
             ) : null}
           </section>

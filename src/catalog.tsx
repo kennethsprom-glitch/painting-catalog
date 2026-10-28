@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
+import { APP_NAME } from './brand.ts'
 import { buildJson, buildZip, parseBackup } from './backup.ts'
 import {
   deletePainting,
@@ -22,7 +23,7 @@ export function CatalogProvider({ children }: { children: ReactNode }) {
   const [error, setError] = useState<string | null>(null)
   const [paintings, setPaintings] = useState<Painting[]>([])
   const [thumbs, setThumbs] = useState<Map<string, string>>(() => new Map())
-  const [catalogName, setName] = useState('Painting Catalog')
+  const [catalogName, setName] = useState(APP_NAME)
   const [persisted, setPersisted] = useState<boolean | null>(null)
   const [message, setMessage] = useState<string | null>(null)
   const urlsRef = useRef<string[]>([])
@@ -100,7 +101,7 @@ export function CatalogProvider({ children }: { children: ReactNode }) {
       setPersisted,
       async saveCatalogName(name: string) {
         await setCatalogName(name)
-        setName(name.trim() || 'Painting Catalog')
+        setName(name.trim() || APP_NAME)
       },
       async save(painting: Painting, photo: PhotoWrite) {
         await savePainting(painting, photo)
